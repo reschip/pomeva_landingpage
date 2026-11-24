@@ -7,6 +7,7 @@ import {
   useReducedMotion,
 } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { PomeloIcon } from './PomeloIcon';
 
 interface Product {
   id: string;
@@ -45,6 +46,7 @@ const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export const EditorialHero: React.FC<EditorialHeroProps> = ({
   scenarios,
   activeProfileId,
+  setActiveProfileId,
   chatStep,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,6 +56,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
   const [showShowcase, setShowShowcase] = useState(false);
   const [cartStep, setCartStep] = useState(0); // 0: none, 1: AI asks, 2: user confirms, 3: Agregado!
 
+  const scenarioList = Object.values(scenarios);
   const activeData = scenarios[activeProfileId];
   const products = activeData.products;
 
@@ -65,10 +68,10 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
 
   useEffect(() => {
     if (chatStep < 4) return;
-    const tShow = setTimeout(() => setShowShowcase(true), 1200);
-    const tAsk = setTimeout(() => setCartStep(1), 2050);
-    const tReply = setTimeout(() => setCartStep(2), 3200);
-    const tAdded = setTimeout(() => setCartStep(3), 4250);
+    const tShow = setTimeout(() => setShowShowcase(true), 3700);
+    const tAsk = setTimeout(() => setCartStep(1), 4900);
+    const tReply = setTimeout(() => setCartStep(2), 6400);
+    const tAdded = setTimeout(() => setCartStep(3), 7800);
     return () => {
       clearTimeout(tShow);
       clearTimeout(tAsk);
@@ -147,7 +150,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
         </div>
 
         {/* 2. LOCKED-HEIGHT STAGE (ZERO JUMP BETWEEN SCENARIOS & ACTS) */}
-        <div className="max-w-[960px] mx-auto h-[465px] sm:h-[525px] lg:h-[545px] flex flex-col justify-start">
+        <div className="max-w-[960px] mx-auto h-[480px] sm:h-[535px] lg:h-[555px] flex flex-col justify-start">
           <AnimatePresence mode="wait">
             {!showShowcase ? (
               /* ACT 1: EDITORIAL TRANSCRIPT WITHOUT BUBBLES (INTERVIEW / LOOKBOOK STYLE) */
@@ -159,21 +162,21 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                     ? { opacity: 0, transition: { duration: 0.25 } }
                     : { opacity: 0, y: -10, transition: { duration: 0.4, ease: EASE_OUT } }
                 }
-                className="w-full max-w-[740px] mx-auto h-full flex flex-col justify-center gap-8"
+                className="w-full max-w-[740px] mx-auto h-full flex flex-col justify-start pt-10 md:pt-14 gap-8"
               >
-                {/* Customer Voice (Left-aligned directly on canvas) */}
+                {/* Customer Voice (Left-aligned directly on canvas, Baskervville) */}
                 <div className="min-h-[126px] sm:min-h-[112px] flex items-start">
                   <AnimatePresence mode="wait">
                     {chatStep >= 1 && (
                       <motion.div
                         key={`user-${activeData.id}`}
                         initial={
-                          prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
+                          prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 14 }
                         }
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.45, ease: EASE_OUT }}
-                        className="w-full space-y-3"
+                        transition={{ duration: 0.65, ease: EASE_OUT }}
+                        className="w-full max-w-[580px] space-y-3 text-left"
                       >
                         <div className="flex items-center gap-2.5">
                           <img
@@ -186,7 +189,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           </span>
                         </div>
                         <p
-                          className="font-editorial-display text-[21px] sm:text-[26px] leading-[1.32] tracking-[-0.02em] text-[#111111]"
+                          className="font-editorial-display text-[21px] sm:text-[25px] leading-[1.34] tracking-[-0.02em] text-[#111111]"
                           style={{ textWrap: 'pretty' }}
                         >
                           “{activeData.request}”
@@ -196,8 +199,8 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                   </AnimatePresence>
                 </div>
 
-                {/* AI Thinking & Curated Response (Indented Editorial Answer) */}
-                <div className="min-h-[160px] sm:min-h-[140px] flex items-start pl-6 sm:pl-14">
+                {/* AI Thinking & Curated Response (Right-aligned polarity, Archivo + PomeloIcon) */}
+                <div className="min-h-[160px] sm:min-h-[140px] flex items-start justify-end">
                   <AnimatePresence mode="wait">
                     {chatStep === 2 && (
                       <motion.div
@@ -205,27 +208,36 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25, ease: EASE_OUT }}
-                        className="w-full max-w-[320px] space-y-2.5 pt-2"
+                        transition={{ duration: 0.35, ease: EASE_OUT }}
+                        className="w-full max-w-[360px] ml-auto space-y-3 pt-1 text-right"
                       >
-                        <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-[#737370]">
-                          <span
-                            className="w-1.5 h-1.5 shrink-0"
-                            style={{ backgroundColor: activeData.color }}
-                          />
+                        <div className="flex items-center justify-end gap-2 text-[11px] uppercase tracking-[0.16em] text-[#737370]">
                           <span>Pomeva AI</span>
+                          <PomeloIcon className="w-5 h-5 shrink-0" />
                         </div>
-                        <div className="relative h-[1px] w-full bg-[#E5E5E3] overflow-hidden">
-                          <motion.div
-                            initial={{ x: '-100%' }}
-                            animate={{ x: '100%' }}
-                            transition={{
-                              repeat: Infinity,
-                              duration: 1.05,
-                              ease: 'easeInOut',
-                            }}
-                            className="absolute inset-y-0 w-1/3 bg-[#111111]"
-                          />
+                        <div className="h-[26px] flex items-center justify-end gap-2">
+                          {[
+                            { color: '#F97316', delay: 0 },
+                            { color: '#FB923C', delay: 0.22 },
+                            { color: '#F43F5E', delay: 0.44 },
+                          ].map((dot, idx) => (
+                            <motion.span
+                              key={idx}
+                              animate={
+                                prefersReducedMotion
+                                  ? undefined
+                                  : { opacity: [0.25, 1, 0.25] }
+                              }
+                              transition={{
+                                repeat: Infinity,
+                                duration: 1.35,
+                                delay: dot.delay,
+                                ease: 'easeInOut',
+                              }}
+                              style={{ backgroundColor: dot.color }}
+                              className="w-2 h-2 rounded-full"
+                            />
+                          ))}
                         </div>
                       </motion.div>
                     )}
@@ -234,22 +246,19 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                       <motion.div
                         key={`ai-${activeData.id}`}
                         initial={
-                          prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }
+                          prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
                         }
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.45, ease: EASE_OUT }}
-                        className="w-full space-y-2.5"
+                        transition={{ duration: 0.65, ease: EASE_OUT }}
+                        className="w-full max-w-[560px] ml-auto space-y-2.5 text-right"
                       >
-                        <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-[#111111] font-semibold">
-                          <span
-                            className="w-1.5 h-1.5 shrink-0"
-                            style={{ backgroundColor: activeData.color }}
-                          />
+                        <div className="flex items-center justify-end gap-2 text-[11px] uppercase tracking-[0.16em] text-[#111111] font-semibold">
                           <span>Pomeva AI</span>
+                          <PomeloIcon className="w-5 h-5 shrink-0" />
                         </div>
                         <p
-                          className="text-[16.5px] sm:text-[18.5px] leading-[1.6] text-[#3A3A38] font-normal"
+                          className="font-editorial-sans text-[16.5px] sm:text-[18.5px] leading-[1.6] text-[#3A3A38] font-normal"
                           style={{ textWrap: 'pretty' }}
                         >
                           {activeData.aiResponse}
@@ -267,7 +276,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, transition: { duration: 0.25 } }}
                 transition={{ duration: 0.35 }}
-                className="w-full h-full flex flex-col items-center justify-center"
+                className="w-full h-full flex flex-col items-center justify-start"
               >
                 <div className="relative w-full max-w-[980px] mx-auto pt-10 md:pt-14 pb-2 flex items-center justify-center">
                   {/* Top-Center Callout for Photo 2 (Desktop md+) */}
@@ -282,7 +291,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                         <span className="text-[12px] font-medium text-[#595957] tracking-[-0.01em]">
                           {products[1].name}
                         </span>
-                        <span className="font-editorial-display text-[24px] lg:text-[28px] leading-none font-semibold text-[#111111] tracking-[-0.03em] tabular-nums">
+                        <span className="font-editorial-display text-[24px] lg:text-[28px] leading-none font-semibold text-[#C2410C] tracking-[-0.03em] tabular-nums">
                           ${products[1].price}
                         </span>
                       </div>
@@ -299,7 +308,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                       className="hidden md:flex items-center gap-3.5 absolute left-0 lg:left-2 top-16 whitespace-nowrap z-30 pointer-events-none"
                     >
                       <div className="text-right">
-                        <div className="font-editorial-display text-[24px] lg:text-[28px] leading-none font-semibold text-[#111111] tracking-[-0.03em] tabular-nums">
+                        <div className="font-editorial-display text-[24px] lg:text-[28px] leading-none font-semibold text-[#C2410C] tracking-[-0.03em] tabular-nums">
                           ${products[0].price}
                         </div>
                         <div className="text-[12px] font-medium text-[#595957] tracking-[-0.01em] mt-1">
@@ -320,7 +329,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                     >
                       <span className="w-4 h-[1px] bg-[#111111] shrink-0" />
                       <div className="text-left">
-                        <div className="font-editorial-display text-[24px] lg:text-[28px] leading-none font-semibold text-[#111111] tracking-[-0.03em] tabular-nums">
+                        <div className="font-editorial-display text-[24px] lg:text-[28px] leading-none font-semibold text-[#C2410C] tracking-[-0.03em] tabular-nums">
                           ${products[2].price}
                         </div>
                         <div className="text-[12px] font-medium text-[#595957] tracking-[-0.01em] mt-1">
@@ -410,7 +419,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                   {products.map((product, i) => (
                     <span key={`compact-${product.id}`} className="inline-flex items-baseline gap-1.5">
                       <span className="font-medium">{product.name}</span>
-                      <span className="font-editorial-display text-[16px] font-semibold text-[#111111] tabular-nums">
+                      <span className="font-editorial-display text-[16px] font-semibold text-[#C2410C] tabular-nums">
                         ${product.price}
                       </span>
                       {i < products.length - 1 && (
@@ -434,14 +443,12 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           }
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.45, ease: EASE_OUT }}
-                          className="flex items-baseline gap-2.5 text-right"
+                          className="flex items-center gap-2.5 text-right"
                         >
-                          <span className="text-[10px] uppercase tracking-[0.14em] text-[#737370]">
-                            Pomeva
-                          </span>
-                          <span className="text-[15.5px] sm:text-[17px] text-[#3A3A38]">
+                          <span className="font-editorial-sans text-[15.5px] sm:text-[17px] text-[#3A3A38]">
                             ¿Quieres que las agregue al carrito?
                           </span>
+                          <PomeloIcon className="w-4 h-4 shrink-0" />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -503,7 +510,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                             <span className="text-[#8C8C88] text-xs" aria-hidden="true">
                               →
                             </span>
-                            <span className="font-editorial-display text-[28px] sm:text-[32px] leading-none font-semibold tracking-[-0.03em] text-[#111111] tabular-nums">
+                            <span className="font-editorial-display text-[28px] sm:text-[32px] leading-none font-semibold tracking-[-0.03em] text-[#C2410C] tabular-nums">
                               ${activeData.kitPrice}
                             </span>
                             <span
@@ -523,6 +530,34 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
           </AnimatePresence>
         </div>
       </div>
+
+      {/* 3 ORANGE SCENARIO DOTS AT BOTTOM OF SCREEN */}
+      <nav
+        aria-label="Cambiar escenario de demostración"
+        className="mt-auto pt-4 flex items-center justify-center gap-2"
+      >
+        {scenarioList.map((profile) => {
+          const isActive = profile.id === activeProfileId;
+          return (
+            <button
+              key={profile.id}
+              type="button"
+              onClick={() => setActiveProfileId(profile.id)}
+              aria-label={`Ver escenario de ${profile.name}`}
+              aria-pressed={isActive}
+              className="p-1.5 flex items-center justify-center focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#EA580C]"
+            >
+              <span
+                className={`block rounded-full transition-all duration-300 ${
+                  isActive
+                    ? 'w-2.5 h-2.5 bg-[#F97316]'
+                    : 'w-2 h-2 bg-[#FDBA74] hover:bg-[#FB923C]'
+                }`}
+              />
+            </button>
+          );
+        })}
+      </nav>
     </section>
   );
 };
