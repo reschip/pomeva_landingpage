@@ -15,7 +15,7 @@ const scenarios: Record<string, any> = {
     id: 'isabella',
     name: 'Isabella',
     theme: 'Cuidado Personal',
-    color: '#DC2626', // Vermilion Red
+    color: '#FF786B',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=faces',
     request: "Últimamente siento la piel muy tensa y seca, mi crema habitual ya no me está hidratando suficiente.",
     aiResponse: "El cambio de clima exige hidratación en capas. Un sérum de ácido hialurónico antes de tu crema ayudará a retener el agua. Armé esta rutina para ti:",
@@ -36,7 +36,7 @@ const scenarios: Record<string, any> = {
     id: 'mateo',
     name: 'Mateo',
     theme: 'Café de especialidad',
-    color: '#1F2937', // Charcoal
+    color: '#252A29',
     avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=faces',
     request: "Quería el Molino Comandante pero veo que está agotado, ¿tienen algo similar en acero?",
     aiResponse: "Vuelve en 2 semanas, pero nuestro Molino de Acero tiene el mismo ajuste micrométrico y stock inmediato.",
@@ -67,7 +67,7 @@ const scenarios: Record<string, any> = {
     id: 'sofia',
     name: 'Sofía',
     theme: 'Plantas y hogar',
-    color: '#059669', // Emerald
+    color: '#FFB45E',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=faces',
     request: "Ya tengo la Maceta Terracota ($45) en mi carrito, ¿cuánto me falta para envío gratis?",
     aiResponse: "Te faltan $45 sobre tu Maceta Terracota para activar el envío gratis hoy mismo.",
@@ -101,7 +101,7 @@ const discoveryIntents = [
     id: 'Bienestar',
     quote: "Necesito algo para relajarme antes de dormir...",
     tags: ['Intención: Relajación', 'Momento: Noche'],
-    activeNodes: [5, 9, 10], 
+    activeNodes: [5, 9, 10],
   },
   {
     id: 'Moda',
@@ -123,7 +123,7 @@ const ledgerData = [
     id: 'unmet',
     category: 'Demanda Latente',
     icon: TrendingUp,
-    color: '#059669', // Emerald
+    color: '#F5D86E',
     chat: [
       { text: "Buscando algo para el frío...", active: false },
       { text: "Tengo la piel muy seca por el clima.", active: true },
@@ -135,13 +135,13 @@ const ledgerData = [
     metricValue: "42%",
     action: "Sugerir nueva línea de cuidado intensivo",
     img: "https://images.unsplash.com/photo-1617897903246-719242758050?w=800&h=400&fit=crop",
-    chartData: [15, 22, 28, 45, 65, 80, 100] // Trending up curve
+    chartData: [15, 22, 28, 45, 65, 80, 100]
   },
   {
     id: 'b2b',
     category: 'Oportunidad B2B',
     icon: Bell,
-    color: '#D97706', // Amber
+    color: '#FFB45E',
     chat: [
       { text: "Hola, busco detalles para mis empleados.", active: false },
       { text: "Necesito 40 kits de regalo para fin de año.", active: true },
@@ -153,13 +153,13 @@ const ledgerData = [
     metricValue: "$3,800",
     action: "Redirigir a ejecutivo VIP",
     img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&h=400&fit=crop",
-    chartData: [5, 8, 12, 10, 50, 95] // Sudden spike
+    chartData: [5, 8, 12, 10, 50, 95]
   },
   {
     id: 'cross',
     category: 'Patrón Cross-sell',
     icon: Zap,
-    color: '#DC2626', // Vermilion
+    color: '#FF786B',
     chat: [
       { text: "Quiero comprar una buena cafetera.", active: false },
       { text: "Y algo para medir el café exactamente.", active: true },
@@ -171,7 +171,7 @@ const ledgerData = [
     metricValue: "84%",
     action: "Crear 'Kit Barista' en catálogo",
     img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&h=400&fit=crop",
-    chartData: [60, 65, 62, 70, 78, 84, 85] // High and steady
+    chartData: [60, 65, 62, 70, 78, 84, 85]
   }
 ];
 
@@ -186,7 +186,7 @@ const ctaCategories: Record<string, { img: string }> = {
 // --- SCENE 5.5: VISUAL INTEGRATION DATA ---
 const integrationData: Record<string, any> = {
   shopify: {
-    id: 'shopify', name: 'Shopify', tag: '1-Click App', color: '#96BF48', img: "/icons/shopify.svg",
+    id: 'shopify', name: 'Shopify', tag: '1-Click App', color: '#FF786B', img: "/icons/shopify.svg",
     metrics: { products: '12.4K', syncTime: '45s' },
     photos: [
       'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&h=250&fit=crop',
@@ -194,7 +194,7 @@ const integrationData: Record<string, any> = {
     ]
   },
   woo: {
-    id: 'woo', name: 'WooCommerce', tag: 'Native Plugin', color: '#96588A', img: "/icons/woocommerce.svg",
+    id: 'woo', name: 'WooCommerce', tag: 'Native Plugin', color: '#FFB45E', img: "/icons/woocommerce.svg",
     metrics: { products: '3.2K', syncTime: '18s' },
     photos: [
       'https://images.unsplash.com/photo-1487798452839-c748a707a6b2?w=200&h=250&fit=crop',
@@ -202,7 +202,7 @@ const integrationData: Record<string, any> = {
     ]
   },
   magento: {
-    id: 'magento', name: 'Magento / VTEX', tag: 'Enterprise API', color: '#EE672F', img: "/icons/magento.svg",
+    id: 'magento', name: 'Magento / VTEX', tag: 'Enterprise API', color: '#F5D86E', img: "/icons/magento.svg",
     metrics: { products: '85.1K', syncTime: '3m 12s' },
     photos: [
       '/images/molino_acero.jpg',
@@ -210,7 +210,7 @@ const integrationData: Record<string, any> = {
     ]
   },
   api: {
-    id: 'api', name: 'Custom Store', tag: 'REST API / GraphQL', color: '#E10098', img: "/icons/graphql.svg",
+    id: 'api', name: 'Custom Store', tag: 'REST API / GraphQL', color: '#252A29', img: "/icons/graphql.svg",
     metrics: { products: 'Real-time', syncTime: '12ms' },
     photos: [
       'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&h=250&fit=crop',
@@ -219,36 +219,22 @@ const integrationData: Record<string, any> = {
   }
 };
 
-// PomeloIcon importado y re-exportado desde ./src/components/PomeloIcon
-
 export default function App() {
-  // Hero State
   const [activeProfileId, setActiveProfileId] = useState('isabella');
-  const [chatStep, setChatStep] = useState(0);
-
-  // Discovery Intent State
+  const [chatStep, setChatStep] = useState(1);
   const [activeIntentIndex, setActiveIntentIndex] = useState(0);
-
-  // Live Ledger State
   const [ledgerIndex, setLedgerIndex] = useState(0);
-
-  // Integration State
   const [activeIntegrationId, setActiveIntegrationId] = useState('shopify');
-
-  // CTA State
   const [ctaCategory, setCtaCategory] = useState('Moda');
 
-  // Orquestación Hero Chat (ritmo pausado y cinematográfico)
   useEffect(() => {
-    setChatStep(0);
-    const t1 = setTimeout(() => setChatStep(1), 450); // Mostrar mensaje usuario
-    const t2 = setTimeout(() => setChatStep(2), 1400); // Mostrar analizando
-    const t3 = setTimeout(() => setChatStep(3), 3000); // Mostrar respuesta AI
-    const t4 = setTimeout(() => setChatStep(4), 3600); // Iniciar transición a productos
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+    setChatStep(1);
+    const t2 = setTimeout(() => setChatStep(2), 1100);
+    const t3 = setTimeout(() => setChatStep(3), 2600);
+    const t4 = setTimeout(() => setChatStep(4), 3200);
+    return () => { clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, [activeProfileId]);
 
-  // Orquestación Hero Auto-cycle (respeta duración por escenario)
   useEffect(() => {
     const profileIds = Object.keys(scenarios);
     const duration = scenarios[activeProfileId]?.cycleDuration ?? 16500;
@@ -261,7 +247,6 @@ export default function App() {
     return () => clearTimeout(timeout);
   }, [activeProfileId]);
 
-  // Orquestación Discovery Auto-cycle
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIntentIndex((prev) => (prev + 1) % discoveryIntents.length);
@@ -269,7 +254,6 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Orquestación Live Ledger Auto-cycle
   useEffect(() => {
     const interval = setInterval(() => {
       setLedgerIndex((prev) => (prev + 1) % ledgerData.length);
@@ -277,16 +261,29 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const scrollToIntegrar = () => {
+    const el = document.getElementById('integrar');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] overflow-x-hidden">
-      
-      {/* 1. NAVBAR */}
-      <header className="fixed top-0 w-full px-6 lg:px-12 py-6 lg:py-7 flex justify-between items-center z-50 bg-[#FFFFFF] font-editorial-sans">
-        <div className="font-semibold tracking-[-0.03em] text-lg text-[#111111] flex items-center gap-2.5">
-          <PomeloIcon className="w-7 h-7" />
-          Pomeva AI
-        </div>
-        <button className="text-[11px] uppercase tracking-[0.16em] text-[#111111] border-b border-[#111111] pb-1 hover:text-[#DC2626] hover:border-[#DC2626] transition-colors font-medium">
+    <div className="min-h-screen bg-[#F9F4E9] text-[#252A29] font-citrus-sans overflow-x-hidden">
+      {/* 1. NAVBAR (clean, simple, rounded button, zero borders) */}
+      <header className="fixed top-0 w-full px-6 lg:px-12 py-5 lg:py-6 flex justify-between items-center z-50 bg-[#F9F4E9]/95 backdrop-blur-sm">
+        <a
+          href="#"
+          className="font-citrus-display font-bold tracking-[-0.025em] text-lg text-[#252A29] flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FF786B] rounded-full"
+        >
+          <PomeloIcon className="w-8 h-8" />
+          <span>Pomeva AI</span>
+        </a>
+        <button
+          type="button"
+          onClick={scrollToIntegrar}
+          className="bg-[#252A29] text-[#F9F4E9] hover:bg-[#FF786B] hover:text-[#252A29] px-5 py-2.5 rounded-full text-[12px] tracking-[0.04em] font-semibold transition-all duration-300 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF786B]"
+        >
           Integrar en mi tienda
         </button>
       </header>
@@ -299,7 +296,7 @@ export default function App() {
         chatStep={chatStep}
       />
 
-      {/* 3. VISUAL DISCOVERY PLATFORM (Intent Parser) */}
+      {/* 3. VISUAL DISCOVERY PLATFORM */}
       <EditorialDiscovery
         intents={discoveryIntents}
         activeIntentIndex={activeIntentIndex}
@@ -331,12 +328,14 @@ export default function App() {
       />
 
       {/* 7. FOOTER */}
-      <footer className="bg-[#FFFFFF] pt-20 pb-16 sm:pt-24 sm:pb-20 px-6 lg:px-12 text-center font-editorial-sans">
+      <footer className="bg-[#F9F4E9] pt-20 pb-16 sm:pt-24 sm:pb-20 px-6 lg:px-12 text-center font-citrus-sans">
         <div className="flex items-center justify-center gap-2.5 mb-4">
-          <PomeloIcon className="w-6 h-6" />
-          <span className="font-semibold tracking-[-0.03em] text-lg text-[#111111]">Pomeva AI</span>
+          <PomeloIcon className="w-7 h-7" />
+          <span className="font-citrus-display font-bold tracking-[-0.025em] text-lg text-[#252A29]">
+            Pomeva AI
+          </span>
         </div>
-        <p className="text-[#737370] text-[13px] font-normal">
+        <p className="text-[#555D5B] text-[13px] font-normal">
           © {new Date().getFullYear()} Pomeva. Redefiniendo el descubrimiento de productos.
         </p>
       </footer>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { OnboardingCitrusBackdrop } from './CitrusIllustrations';
 
 interface EditorialOnboardingProps {
   categories: Record<string, { img: string }>;
@@ -21,31 +22,34 @@ export const EditorialOnboarding: React.FC<EditorialOnboardingProps> = ({
 
   return (
     <section
+      id="integrar"
       aria-label="Comenzar integración por sector"
-      className="relative bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
+      className="relative bg-[#252A29] text-[#F9F4E9] font-citrus-sans py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
     >
-      <div className="w-full max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
-        {/* Left Column: Editorial Headline + Sector Selector + CTA */}
+      <OnboardingCitrusBackdrop />
+
+      <div className="relative z-10 w-full max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
+        {/* Left Column: Headline + Sector Pill Selector + Rounded CTA */}
         <div className="lg:col-span-6 flex flex-col justify-center">
           <h2
-            className="font-editorial-sans text-[clamp(1.85rem,3.8vw,3.15rem)] leading-[1.08] tracking-[-0.035em] font-medium text-[#111111]"
+            className="font-citrus-display text-[clamp(1.95rem,4vw,3.35rem)] leading-[1.06] tracking-[-0.03em] font-semibold text-[#F9F4E9]"
             style={{ textWrap: 'balance' }}
           >
             Prepara tu tienda para{' '}
-            <span className="text-[#DC2626]">entender</span> mejor.
+            <span className="text-[#F5D86E]">entender</span> mejor.
           </h2>
           <p
-            className="mt-4 text-[17px] sm:text-[19px] leading-[1.48] text-[#52524E] font-normal max-w-lg"
+            className="mt-4 text-[17px] sm:text-[19px] leading-[1.5] text-[#C9C4B8] font-normal max-w-lg"
             style={{ textWrap: 'pretty' }}
           >
             Selecciona tu sector principal y descubre cómo Pomeva AI se adapta a tu catálogo.
           </p>
 
-          {/* Sector Selector (open canvas with Hero orange dots) */}
+          {/* Sector Pill Selector (zero borders, solid flat fills) */}
           <div
             role="group"
             aria-label="Seleccionar sector principal"
-            className="flex flex-wrap gap-x-6 gap-y-3 my-8"
+            className="flex flex-wrap gap-3 my-9"
           >
             {categoryNames.map((cat) => {
               const isActive = ctaCategory === cat;
@@ -55,25 +59,13 @@ export const EditorialOnboarding: React.FC<EditorialOnboardingProps> = ({
                   type="button"
                   onClick={() => setCtaCategory(cat)}
                   aria-pressed={isActive}
-                  className="inline-flex items-center gap-2.5 py-1 transition-colors duration-200 focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#EA580C] group"
+                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-[14px] sm:text-[15px] font-medium transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5D86E] ${
+                    isActive
+                      ? 'bg-[#F5D86E] text-[#252A29] font-semibold'
+                      : 'bg-[#313736] text-[#F9F4E9] hover:bg-[#3D4443]'
+                  }`}
                 >
-                  <span
-                    aria-hidden="true"
-                    className={`block rounded-full transition-all duration-300 ${
-                      isActive
-                        ? 'w-2.5 h-2.5 bg-[#F97316]'
-                        : 'w-2 h-2 bg-[#FDBA74] group-hover:bg-[#FB923C]'
-                    }`}
-                  />
-                  <span
-                    className={`text-[14px] sm:text-[15px] transition-colors duration-200 ${
-                      isActive
-                        ? 'text-[#111111] font-semibold'
-                        : 'text-[#595957] font-normal group-hover:text-[#111111]'
-                    }`}
-                  >
-                    {cat}
-                  </span>
+                  <span>{cat}</span>
                 </button>
               );
             })}
@@ -81,26 +73,26 @@ export const EditorialOnboarding: React.FC<EditorialOnboardingProps> = ({
 
           <button
             type="button"
-            className="bg-[#111111] text-[#FFFFFF] hover:bg-[#DC2626] px-7 py-4 text-[12px] uppercase tracking-[0.16em] font-semibold transition-colors duration-300 w-fit inline-flex items-center gap-3 group focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#EA580C]"
+            className="bg-[#FF786B] text-[#252A29] hover:bg-[#FFB45E] px-8 py-4 rounded-full text-[13px] tracking-[0.06em] uppercase font-bold transition-all duration-300 hover:scale-[1.02] w-fit inline-flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5D86E]"
           >
             <span>Comenzar Integración</span>
             <ArrowRight
-              size={15}
+              size={16}
               className="group-hover:translate-x-1 transition-transform"
               aria-hidden="true"
             />
           </button>
         </div>
 
-        {/* Right Column: Sharp-Edged Borderless Editorial Photograph */}
+        {/* Right Column: Rounded Borderless Photograph */}
         <div className="lg:col-span-6">
-          <div className="relative w-full max-w-[560px] mx-auto lg:ml-auto aspect-[4/4.2] bg-[#F3F3F1] overflow-hidden">
+          <div className="relative w-full max-w-[540px] mx-auto lg:ml-auto aspect-[4/4.2] rounded-[32px] bg-[#313736] overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.img
                 key={ctaCategory}
                 src={activeImage}
                 alt={ctaCategory}
-                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.02 }}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.45, ease: EASE_OUT }}

@@ -37,10 +37,10 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
   return (
     <section
       aria-label="Integración con plataformas de ecommerce"
-      className="relative bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
+      className="relative bg-[#F9F4E9] text-[#252A29] font-citrus-sans py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
     >
       <div className="w-full max-w-[1320px] mx-auto">
-        {/* Centered Editorial Headline */}
+        {/* Centered Headline */}
         <motion.div
           initial={false}
           whileInView={prefersReducedMotion ? undefined : { y: [8, 0] }}
@@ -49,28 +49,28 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
           className="text-center mx-auto max-w-[920px] mb-16 sm:mb-20 lg:mb-24"
         >
           <h2
-            className="font-editorial-sans text-[clamp(1.75rem,3.6vw,3.05rem)] leading-[1.1] tracking-[-0.035em] font-medium text-[#111111]"
+            className="font-citrus-display text-[clamp(1.85rem,3.8vw,3.25rem)] leading-[1.08] tracking-[-0.03em] font-semibold text-[#252A29]"
             style={{ textWrap: 'balance' }}
           >
             Conecta tu catálogo en{' '}
-            <span className="text-[#DC2626]">minutos.</span>{' '}
+            <span className="text-[#FF786B]">minutos.</span>{' '}
             Empieza a vender mejor.
           </h2>
           <p
-            className="mt-4 text-[17px] sm:text-[19px] leading-[1.48] text-[#52524E] max-w-2xl mx-auto font-normal"
+            className="mt-4 text-[17px] sm:text-[19px] leading-[1.5] text-[#555D5B] max-w-2xl mx-auto font-normal"
             style={{ textWrap: 'balance' }}
           >
             Pomeva procesa tu inventario, variables y contexto de forma nativa sin interrumpir la operación de tu tienda.
           </p>
         </motion.div>
 
-        {/* Two-column Editorial Integration Pipeline */}
+        {/* Two-column Integration Pipeline */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
           {/* Left Column: Open Platform Selector */}
           <div
             role="group"
             aria-label="Seleccionar plataforma"
-            className="lg:col-span-4 flex flex-col gap-6"
+            className="lg:col-span-4 flex flex-col gap-5"
           >
             {integrationList.map((node) => {
               const isActive = activeIntegrationId === node.id;
@@ -80,14 +80,16 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                   type="button"
                   onClick={() => setActiveIntegrationId(node.id)}
                   aria-pressed={isActive}
-                  className="w-full text-left py-1.5 flex items-center gap-4 transition-colors duration-300 focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#EA580C] group"
+                  className={`w-full text-left px-4 py-3 rounded-2xl flex items-center gap-4 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF786B] group ${
+                    isActive ? 'bg-[#F2EAD8]' : 'hover:bg-[#F2EAD8]/60'
+                  }`}
                 >
                   <span
                     aria-hidden="true"
                     className={`block rounded-full shrink-0 transition-all duration-300 ${
                       isActive
-                        ? 'w-2.5 h-2.5 bg-[#F97316]'
-                        : 'w-2 h-2 bg-[#FDBA74] group-hover:bg-[#FB923C]'
+                        ? 'w-5 h-2.5 bg-[#FF786B]'
+                        : 'w-2.5 h-2.5 bg-[#FFB45E] group-hover:bg-[#FF786B]'
                     }`}
                   />
                   <div className="w-8 h-8 flex items-center justify-center shrink-0">
@@ -101,15 +103,15 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                   </div>
                   <div>
                     <div
-                      className={`text-[17px] tracking-[-0.015em] transition-colors duration-300 ${
+                      className={`font-citrus-display text-[17px] tracking-[-0.015em] transition-colors duration-300 ${
                         isActive
-                          ? 'text-[#111111] font-semibold'
-                          : 'text-[#595957] font-medium group-hover:text-[#111111]'
+                          ? 'text-[#252A29] font-semibold'
+                          : 'text-[#555D5B] font-medium group-hover:text-[#252A29]'
                       }`}
                     >
                       {node.name}
                     </div>
-                    <div className="text-[11px] uppercase tracking-[0.14em] text-[#737370] mt-0.5">
+                    <div className="text-[11px] uppercase tracking-[0.14em] text-[#555D5B] mt-0.5">
                       {node.tag}
                     </div>
                   </div>
@@ -123,7 +125,7 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
             <div className="flex flex-col md:flex-row items-center justify-between gap-10 lg:gap-12">
               {/* Step 1: Raw Catalog */}
               <div className="flex flex-col items-center gap-4 shrink-0">
-                <span className="text-[11px] uppercase tracking-[0.16em] text-[#737370] font-medium">
+                <span className="text-[11px] uppercase tracking-[0.14em] text-[#555D5B] font-semibold">
                   Catálogo Bruto
                 </span>
                 <AnimatePresence mode="wait">
@@ -133,36 +135,36 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, transition: { duration: 0.2 } }}
                     transition={{ duration: 0.45, ease: EASE_OUT }}
-                    className="flex items-center -space-x-4 pt-1"
+                    className="flex items-center -space-x-3 pt-1"
                   >
                     <motion.div
                       animate={
                         prefersReducedMotion
                           ? undefined
-                          : { y: [0, -3, 0] }
+                          : { y: [0, -4, 0] }
                       }
-                      transition={{ repeat: Infinity, duration: 3.2, ease: 'easeInOut' }}
-                      className="w-28 h-36 sm:w-32 sm:h-40 bg-[#F3F3F1] overflow-hidden -rotate-3 ring-2 ring-[#FFFFFF] relative z-10"
+                      transition={{ repeat: Infinity, duration: 3.4, ease: 'easeInOut' }}
+                      className="w-28 h-36 sm:w-32 sm:h-40 rounded-3xl bg-[#F2EAD8] overflow-hidden -rotate-3 relative z-10"
                     >
                       <img
                         src={activeIntegration.photos[0]}
                         alt={`${activeIntegration.name} producto 1`}
-                        className="w-full h-full object-cover grayscale-[20%]"
+                        className="w-full h-full object-cover"
                       />
                     </motion.div>
                     <motion.div
                       animate={
                         prefersReducedMotion
                           ? undefined
-                          : { y: [0, 3, 0] }
+                          : { y: [0, 4, 0] }
                       }
-                      transition={{ repeat: Infinity, duration: 3.2, delay: 0.5, ease: 'easeInOut' }}
-                      className="w-28 h-36 sm:w-32 sm:h-40 bg-[#F3F3F1] overflow-hidden rotate-3 translate-y-2 ring-2 ring-[#FFFFFF] relative z-0"
+                      transition={{ repeat: Infinity, duration: 3.4, delay: 0.5, ease: 'easeInOut' }}
+                      className="w-28 h-36 sm:w-32 sm:h-40 rounded-3xl bg-[#F2EAD8] overflow-hidden rotate-3 translate-y-2 relative z-0"
                     >
                       <img
                         src={activeIntegration.photos[1]}
                         alt={`${activeIntegration.name} producto 2`}
-                        className="w-full h-full object-cover grayscale-[45%]"
+                        className="w-full h-full object-cover opacity-85"
                       />
                     </motion.div>
                   </motion.div>
@@ -188,23 +190,23 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                           delay,
                           ease: 'easeInOut',
                         }}
-                        className="absolute left-0 w-1.5 h-1.5 rounded-full bg-[#F97316]"
+                        className="absolute left-0 w-2 h-2 rounded-full bg-[#FFB45E]"
                       />
                     ))}
-                  <ArrowRight size={14} className="text-[#F97316] relative z-10 bg-[#FFFFFF]" />
+                  <ArrowRight size={15} className="text-[#FFB45E] relative z-10 bg-[#F9F4E9]" />
                 </div>
 
-                {/* Processing Pomelo */}
+                {/* Processing Pomelo on sunlit Lemon flat circle */}
                 <motion.div
                   animate={
                     prefersReducedMotion
                       ? undefined
-                      : { scale: [1, 1.09, 1] }
+                      : { scale: [1, 1.07, 1] }
                   }
-                  transition={{ repeat: Infinity, duration: 2.0, ease: 'easeInOut' }}
-                  className="p-2 flex items-center justify-center"
+                  transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+                  className="w-16 h-16 rounded-full bg-[#F5D86E] flex items-center justify-center shrink-0"
                 >
-                  <PomeloIcon className="w-8 h-8 shrink-0" />
+                  <PomeloIcon className="w-9 h-9 shrink-0" />
                 </motion.div>
 
                 {/* Outgoing traveling particles */}
@@ -221,16 +223,16 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                           delay: delay + 0.45,
                           ease: 'easeInOut',
                         }}
-                        className="absolute left-0 w-1.5 h-1.5 rounded-full bg-[#DC2626]"
+                        className="absolute left-0 w-2 h-2 rounded-full bg-[#FF786B]"
                       />
                     ))}
-                  <ArrowRight size={14} className="text-[#DC2626] relative z-10 bg-[#FFFFFF]" />
+                  <ArrowRight size={15} className="text-[#FF786B] relative z-10 bg-[#F9F4E9]" />
                 </div>
               </div>
 
               {/* Step 3: Structured AI Output */}
               <div className="flex flex-col items-center md:items-start gap-4 w-full max-w-[290px] shrink-0">
-                <span className="text-[11px] uppercase tracking-[0.16em] text-[#DC2626] font-semibold">
+                <span className="text-[11px] uppercase tracking-[0.14em] text-[#C94437] font-semibold">
                   Inteligencia AI
                 </span>
                 <AnimatePresence mode="wait">
@@ -247,29 +249,29 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                         <img
                           src={activeIntegration.photos[0]}
                           alt=""
-                          className="w-12 h-14 object-cover bg-[#F3F3F1] ring-2 ring-[#FFFFFF]"
+                          className="w-12 h-14 rounded-2xl object-cover bg-[#F2EAD8]"
                         />
                         <img
                           src={activeIntegration.photos[1]}
                           alt=""
-                          className="w-12 h-14 object-cover bg-[#F3F3F1] ring-2 ring-[#FFFFFF]"
+                          className="w-12 h-14 rounded-2xl object-cover bg-[#F2EAD8]"
                         />
                       </div>
                       <div>
-                        <div className="text-[16px] font-semibold text-[#111111] leading-tight">
+                        <div className="font-citrus-display text-[17px] font-semibold text-[#252A29] leading-tight">
                           Bundle Recomendado
                         </div>
-                        <div className="text-[11px] uppercase tracking-[0.12em] text-[#C2410C] mt-1">
+                        <div className="text-[11px] uppercase tracking-[0.12em] text-[#C94437] font-semibold mt-1">
                           Match Semántico
                         </div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2.5 text-[14px]">
-                      <span className="w-4 h-4 rounded-full bg-[#F97316] flex items-center justify-center text-[#FFFFFF] shrink-0">
-                        <Check size={10} strokeWidth={2.5} />
+                      <span className="w-5 h-5 rounded-full bg-[#FF786B] flex items-center justify-center text-[#F9F4E9] shrink-0">
+                        <Check size={11} strokeWidth={2.8} />
                       </span>
-                      <span className="font-medium text-[#111111]">
+                      <span className="font-semibold text-[#252A29]">
                         {activeIntegration.name} conectado
                       </span>
                     </div>

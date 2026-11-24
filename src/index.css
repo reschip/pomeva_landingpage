@@ -2,31 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --citrus-coral: #FF786B;
+  --citrus-coral-deep: #C94437;
+  --citrus-orange: #FFB45E;
+  --citrus-lemon: #F5D86E;
+  --citrus-offwhite: #F9F4E9;
+  --citrus-sand: #F2EAD8;
+  --citrus-graphite: #252A29;
+  --citrus-graphite-soft: #313736;
+  --citrus-muted: #555D5B;
+  --citrus-muted-light: #C9C4B8;
+}
+
 @layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  /* Editorial Hero Typography Utilities */
-  .font-editorial-display {
-    font-family: 'Baskervville', Georgia, 'Times New Roman', serif;
+  .font-citrus-display {
+    font-family: 'Bricolage Grotesque', 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
   }
-  .font-editorial-sans {
+  .font-citrus-sans {
     font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   }
-  .font-editorial-accent {
-    font-family: 'Outfit', sans-serif;
-  }
+}
+
+html {
+  background-color: var(--citrus-offwhite);
+  color: var(--citrus-graphite);
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--citrus-offwhite);
+  color: var(--citrus-graphite);
+  font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  caret-color: var(--citrus-coral);
+}
+
+::selection {
+  background-color: var(--citrus-coral);
+  color: var(--citrus-offwhite);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--citrus-offwhite);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--citrus-orange);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--citrus-coral);
 }
