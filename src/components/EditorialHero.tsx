@@ -196,11 +196,11 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
     <section
       ref={sectionRef}
       aria-label="Experiencia conversacional de recomendación"
-      className="relative min-h-[100dvh] flex flex-col bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] pt-20 sm:pt-24 pb-6 sm:pb-8 px-6 lg:px-12 border-b border-[#E8E8E6] overflow-hidden"
+      className="relative min-h-[100dvh] flex flex-col justify-start bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] pt-24 sm:pt-24 lg:pt-[96px] pb-6 sm:pb-8 px-6 lg:px-12 border-b border-[#E8E8E6] overflow-hidden"
     >
-      <div className="w-full max-w-[1160px] mx-auto my-auto">
-        {/* 1. CENTERED HERO HEADLINE & SUBHEADLINE */}
-        <div className="text-center mx-auto pb-8 sm:pb-10 lg:pb-12">
+      <div className="w-full max-w-[1160px] mx-auto flex-1 flex flex-col">
+        {/* 1. CENTERED HERO HEADLINE & SUBHEADLINE (FIXED AT TOP) */}
+        <div className="text-center mx-auto pb-4 sm:pb-6">
           <motion.h1
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -228,8 +228,8 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
           </motion.p>
         </div>
 
-        {/* 2. LOCKED-HEIGHT STAGE (ZERO JUMP BETWEEN SCENARIOS, TURNS & ACTS) */}
-        <div className="max-w-[960px] mx-auto h-[465px] sm:h-[515px] lg:h-[530px] flex flex-col justify-start">
+        {/* 2. LOCKED-HEIGHT STAGE (CENTERED VERTICALLY IN REMAINING SPACE, ZERO JUMP) */}
+        <div className="w-full max-w-[960px] mx-auto my-auto h-[465px] sm:h-[515px] lg:h-[530px] flex flex-col justify-start">
           <AnimatePresence mode="wait">
             {!showShowcase ? (
               /* ACT 1: MULTI-TURN EDITORIAL TRANSCRIPT WITH INLINE PRODUCT CONTEXT */
