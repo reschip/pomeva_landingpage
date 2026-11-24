@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, ArrowRight, Plus, TrendingUp, Search, Bell, Check, Database, Zap, Layers, Cpu, Clock, ChevronRight, ShoppingBag, Box, Globe, Code, Link } from 'lucide-react';
+import { EditorialHero } from './src/components/EditorialHero';
 
 // --- SCENE 2: HERO DATA ---
 const scenarios: Record<string, any> = {
@@ -13,8 +14,8 @@ const scenarios: Record<string, any> = {
     request: "Últimamente siento la piel muy tensa y seca, mi crema habitual ya no me está hidratando suficiente.",
     aiResponse: "El cambio de clima exige hidratación en capas. Un sérum de ácido hialurónico antes de tu crema ayudará a retener el agua. Armé esta rutina para ti:",
     products: [
-      { id: 'p7', name: 'Sérum Hialurónico', price: 42, img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=500&fit=crop', z: 30, rotate: -2, x: '-15%', y: '-5%' },
-      { id: 'p8', name: 'Crema Barrera', price: 38, img: 'https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=250&h=250&fit=crop', z: 20, rotate: 8, x: '15%', y: '30%' },
+      { id: 'p7', name: 'Sérum Hialurónico', price: 42, img: '/images/crema_facial_2.jpg', z: 30, rotate: -2, x: '-15%', y: '-5%' },
+      { id: 'p8', name: 'Crema Barrera', price: 38, img: '/images/crema_facial_1.jpg', z: 20, rotate: 8, x: '15%', y: '30%' },
       { id: 'p9', name: 'Limpiador Suave', price: 25, img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=300&h=300&fit=crop', z: 40, rotate: -4, x: '35%', y: '5%' }
     ],
     basePrice: 42,
@@ -295,6 +296,18 @@ export default function App() {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, [activeProfileId]);
 
+  // Orquestación Hero Auto-cycle
+  useEffect(() => {
+    const profileIds = Object.keys(scenarios);
+    const interval = setInterval(() => {
+      setActiveProfileId((prev) => {
+        const idx = profileIds.indexOf(prev);
+        return profileIds[(idx + 1) % profileIds.length];
+      });
+    }, 10500);
+    return () => clearInterval(interval);
+  }, []);
+
   // Orquestación Discovery Auto-cycle
   useEffect(() => {
     const interval = setInterval(() => {
@@ -315,164 +328,23 @@ export default function App() {
     <div className="min-h-screen bg-[#F3F4F6] text-[#1F2937] font-sans selection:bg-[#DC2626] selection:text-white overflow-x-hidden">
       
       {/* 1. NAVBAR */}
-      <header className="fixed top-0 w-full px-6 lg:px-12 py-6 flex justify-between items-center z-50 bg-[#F3F4F6]/80 backdrop-blur-md border-b border-gray-200">
-        <div className="font-bold tracking-tighter text-xl text-[#1F2937] flex items-center gap-2.5">
-          <PomeloIcon className="w-8 h-8 drop-shadow-sm" />
+      <header className="fixed top-0 w-full px-6 lg:px-12 py-6 lg:py-7 flex justify-between items-center z-50 bg-[#FFFFFF] font-editorial-sans">
+        <div className="font-semibold tracking-[-0.03em] text-lg text-[#111111] flex items-center gap-2.5">
+          <PomeloIcon className="w-7 h-7" />
           Pomeva AI
         </div>
-        <button className="text-xs uppercase tracking-widest text-[#1F2937] border-b border-[#1F2937] pb-1 hover:text-[#DC2626] hover:border-[#DC2626] transition-colors font-medium">
+        <button className="text-[11px] uppercase tracking-[0.16em] text-[#111111] border-b border-[#111111] pb-1 hover:text-[#DC2626] hover:border-[#DC2626] transition-colors font-medium">
           Integrar en mi tienda
         </button>
       </header>
 
       {/* 2. HERO EXPERIENCE */}
-      <section className="min-h-screen pt-32 pb-16 px-6 lg:px-12 flex flex-col relative bg-white">
-        <motion.div 
-          initial="hidden" animate="visible" variants={fadeUp}
-          className="text-center max-w-3xl mx-auto mb-16 lg:mb-20"
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight mb-4 text-[#1F2937]">
-            Escucha. Comprende. Recomienda.
-          </h1>
-          <p className="text-lg md:text-xl text-gray-500 font-light">
-            Cada conversación se convierte en una oportunidad de venta curada e inteligente.
-          </p>
-        </motion.div>
-
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 max-w-7xl mx-auto w-full">
-          
-          {/* LEFT: INTELLIGENT CONVERSATION */}
-          <div className="lg:col-span-5 flex flex-col relative z-10">
-            {/* Profile Selector */}
-            <div className="flex gap-4 mb-8">
-              {Object.values(scenarios).map((profile: any) => (
-                <button
-                  key={profile.id}
-                  onClick={() => setActiveProfileId(profile.id)}
-                  style={{ borderColor: activeProfileId === profile.id ? profile.color : 'transparent' }}
-                  className={`relative rounded-full overflow-hidden w-14 h-14 transition-all duration-500 ease-out border-2 ${
-                    activeProfileId === profile.id ? 'scale-110 shadow-lg' : 'opacity-40 hover:opacity-100 grayscale hover:grayscale-0'
-                  }`}
-                >
-                  <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-
-            {/* Chat UI */}
-            <div className="flex-1 bg-[#F3F4F6] border border-gray-200 p-6 md:p-8 rounded-[2rem] shadow-inner flex flex-col justify-between min-h-[420px]">
-              <div className="space-y-6">
-                {/* User Message */}
-                <AnimatePresence>
-                  {chatStep >= 1 && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-4">
-                      <img src={activeData.avatar} alt="" className="w-8 h-8 rounded-full object-cover mt-1 shadow-sm" />
-                      <div className="bg-white p-4 rounded-2xl rounded-tl-sm text-[#1F2937] text-sm md:text-base leading-relaxed shadow-sm border border-gray-100">
-                        "{activeData.request}"
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* AI Typing Indicator */}
-                <AnimatePresence>
-                  {chatStep === 2 && (
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="flex items-start gap-4 flex-row-reverse">
-                       <div style={{ backgroundColor: activeData.color }} className="w-8 h-8 rounded-full flex items-center justify-center text-white mt-1 shrink-0 shadow-md">
-                        <Zap size={14} />
-                      </div>
-                      <div className="bg-white border border-gray-100 p-4 rounded-2xl rounded-tr-sm flex gap-1 items-center shadow-sm">
-                        <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0 }} className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                        <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }} className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                        <motion.div animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }} className="w-1.5 h-1.5 bg-gray-400 rounded-full" />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* AI Response */}
-                <AnimatePresence>
-                  {chatStep >= 3 && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-4 flex-row-reverse">
-                      <div style={{ backgroundColor: activeData.color }} className="w-8 h-8 rounded-full flex items-center justify-center text-white mt-1 shrink-0 shadow-md">
-                        <Zap size={14} />
-                      </div>
-                      <div className="bg-[#1F2937] text-white p-4 rounded-2xl rounded-tr-sm text-sm md:text-base leading-relaxed shadow-lg font-light">
-                        {activeData.aiResponse}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: PRODUCT KIT BUILDER */}
-          <div className="lg:col-span-7 flex flex-col justify-center relative min-h-[500px] lg:min-h-0">
-            <div className="relative w-full h-[60%] md:h-[70%] mb-8 flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                {chatStep >= 4 && (
-                  <motion.div key={activeData.id} className="absolute inset-0 flex items-center justify-center">
-                    {activeData.products.map((product: any, index: number) => (
-                      <motion.div
-                        key={product.id}
-                        initial={{ opacity: 0, scale: 0.8, x: -50, y: 50 }}
-                        animate={{ opacity: 1, scale: 1, x: product.x, y: product.y }}
-                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                        transition={{ duration: 0.8, delay: index * 0.15, type: "spring", damping: 15 }}
-                        style={{ zIndex: product.z, rotate: product.rotate }}
-                        className="absolute shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:scale-105 hover:z-50 transition-transform duration-500 cursor-pointer"
-                      >
-                        <img 
-                          src={product.img} 
-                          alt={product.name} 
-                          className="w-32 md:w-48 lg:w-56 object-cover border-[6px] border-white bg-white" 
-                        />
-                        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white px-3 py-1 text-xs whitespace-nowrap shadow-sm border border-gray-100 font-medium text-[#1F2937]">
-                          {product.name}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Value Transformation UI */}
-            <div className="border-t border-gray-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6 z-20 bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border">
-              <div className="flex items-center gap-6 w-full sm:w-auto">
-                <div className="text-center sm:text-left">
-                  <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-1 font-bold">Producto Base</div>
-                  <div className="text-xl line-through opacity-40 font-light">${activeData.basePrice}</div>
-                </div>
-                <ArrowRight className="text-gray-300" size={20} />
-                <div className="text-center sm:text-left">
-                  <div className="text-[10px] uppercase tracking-widest font-bold mb-1" style={{ color: activeData.color }}>
-                    Kit Personalizado ({activeData.multiplier})
-                  </div>
-                  <AnimatePresence mode="popLayout">
-                    {chatStep >= 4 ? (
-                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-3xl font-light text-[#1F2937]">
-                        ${activeData.kitPrice}
-                      </motion.div>
-                    ) : (
-                      <div className="text-3xl font-light text-transparent bg-gray-100 animate-pulse rounded w-20 h-9"></div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-              
-              <button 
-                disabled={chatStep < 4}
-                className="w-full sm:w-auto bg-[#DC2626] text-white px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#B91C1C] transition-colors duration-300 flex items-center justify-center gap-2 group shadow-[0_10px_30px_rgba(220,38,38,0.3)] font-medium rounded-full"
-              >
-                Añadir Kit al Carrito
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <EditorialHero
+        scenarios={scenarios}
+        activeProfileId={activeProfileId}
+        setActiveProfileId={setActiveProfileId}
+        chatStep={chatStep}
+      />
 
       {/* 3. VISUAL DISCOVERY PLATFORM (Intent Parser) */}
       <section className="py-24 md:py-32 px-6 lg:px-12 bg-[#F3F4F6] overflow-hidden">

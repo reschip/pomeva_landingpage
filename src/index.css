@@ -12,6 +12,16 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+  /* Editorial Hero Typography Utilities */
+  .font-editorial-display {
+    font-family: 'Baskervville', Georgia, 'Times New Roman', serif;
+  }
+  .font-editorial-sans {
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  }
+  .font-editorial-accent {
+    font-family: 'Outfit', sans-serif;
+  }
 }
 
 body {
