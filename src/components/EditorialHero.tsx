@@ -189,7 +189,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           </span>
                         </div>
                         <p
-                          className="font-editorial-display text-[21px] sm:text-[25px] leading-[1.34] tracking-[-0.02em] text-[#111111]"
+                          className="font-editorial-display text-[18px] sm:text-[21px] leading-[1.48] tracking-[-0.015em] text-[#111111]"
                           style={{ textWrap: 'pretty' }}
                         >
                           “{activeData.request}”
@@ -258,7 +258,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           <PomeloIcon className="w-5 h-5 shrink-0" />
                         </div>
                         <p
-                          className="font-editorial-sans text-[16.5px] sm:text-[18.5px] leading-[1.6] text-[#3A3A38] font-normal"
+                          className="font-editorial-sans text-[18px] sm:text-[21px] leading-[1.48] text-[#3A3A38] font-normal"
                           style={{ textWrap: 'pretty' }}
                         >
                           {activeData.aiResponse}
@@ -284,7 +284,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                     <motion.div
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.35, ease: EASE_OUT }}
+                      transition={{ duration: 0.5, delay: 0.5, ease: EASE_OUT }}
                       className="hidden md:flex flex-col items-center gap-1.5 absolute top-0 left-1/2 -translate-x-1/2 whitespace-nowrap z-30 pointer-events-none"
                     >
                       <div className="flex items-baseline gap-2.5">
@@ -302,9 +302,9 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                   {/* Left Outer Callout for Photo 1 (Desktop md+) */}
                   {products[0] && (
                     <motion.div
-                      initial={{ opacity: 0, x: 6 }}
+                      initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.3, ease: EASE_OUT }}
+                      transition={{ duration: 0.5, delay: 0.28, ease: EASE_OUT }}
                       className="hidden md:flex items-center gap-3.5 absolute left-0 lg:left-2 top-16 whitespace-nowrap z-30 pointer-events-none"
                     >
                       <div className="text-right">
@@ -322,9 +322,9 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                   {/* Right Outer Callout for Photo 3 (Desktop md+) */}
                   {products[2] && (
                     <motion.div
-                      initial={{ opacity: 0, x: -6 }}
+                      initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.4, ease: EASE_OUT }}
+                      transition={{ duration: 0.5, delay: 0.72, ease: EASE_OUT }}
                       className="hidden md:flex items-center gap-3.5 absolute right-0 lg:right-2 bottom-10 whitespace-nowrap z-30 pointer-events-none"
                     >
                       <span className="w-4 h-[1px] bg-[#111111] shrink-0" />
@@ -358,20 +358,20 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                               ? { opacity: 0, rotate: spec.rotate }
                               : {
                                   opacity: 0,
-                                  y: 16,
+                                  x: -24,
                                   rotate: spec.rotate * 0.5,
                                   scale: 0.96,
                                 }
                           }
                           animate={{
                             opacity: isDimmed ? 0.5 : 1,
-                            y: 0,
+                            x: 0,
                             rotate: isHovered ? 0 : spec.rotate,
                             scale: isHovered ? 1.04 : 1,
                           }}
                           transition={{
                             duration: 0.75,
-                            delay: idx * 0.1,
+                            delay: idx * 0.22,
                             ease: EASE_OUT,
                           }}
                           style={{ zIndex: isHovered ? 40 : spec.zIndex }}
@@ -383,7 +383,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                             initial={
                               prefersReducedMotion
                                 ? { opacity: 0 }
-                                : { clipPath: 'inset(100% 0% 0% 0%)' }
+                                : { clipPath: 'inset(0% 100% 0% 0%)' }
                             }
                             animate={
                               prefersReducedMotion
@@ -392,7 +392,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                             }
                             transition={{
                               duration: 0.8,
-                              delay: idx * 0.1,
+                              delay: idx * 0.22,
                               ease: EASE_OUT,
                             }}
                             className={`w-full ${spec.aspect} overflow-hidden bg-[#F3F3F1]`}
@@ -445,7 +445,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           transition={{ duration: 0.45, ease: EASE_OUT }}
                           className="flex items-center gap-2.5 text-right"
                         >
-                          <span className="font-editorial-sans text-[15.5px] sm:text-[17px] text-[#3A3A38]">
+                          <span className="font-editorial-sans text-[16px] sm:text-[18px] text-[#3A3A38]">
                             ¿Quieres que las agregue al carrito?
                           </span>
                           <PomeloIcon className="w-4 h-4 shrink-0" />
@@ -471,7 +471,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                             alt={activeData.name}
                             className="w-6 h-6 rounded-full object-cover shrink-0 grayscale-[20%]"
                           />
-                          <span className="font-editorial-display text-[18px] sm:text-[20px] text-[#111111] tracking-[-0.02em]">
+                          <span className="font-editorial-display text-[16px] sm:text-[18px] text-[#111111] tracking-[-0.015em]">
                             “Sí, agrégalas.”
                           </span>
                         </motion.div>
