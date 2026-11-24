@@ -11,33 +11,46 @@ export const PomeloIcon: React.FC<{ className?: string }> = ({
     className={className}
     aria-hidden="true"
   >
-    {/* Minimal flat leaf accent */}
+    {/* Secondary small sprout leaf (left) */}
     <path
-      d="M36 14C37 6 47 3 53 8C55 14 48 21 38 19C36.8 18.8 35.8 16.5 36 14Z"
-      fill="#252A29"
+      d="M29.5 16.5C25.5 15.8 20.5 13 18.5 8.8C23.2 8.2 28.2 10.6 30.2 15.2L29.5 16.5Z"
+      fill="#74C18E"
     />
-    {/* Outer citrus rind (Orange) */}
-    <circle cx="30" cy="36" r="24" fill="#FFB45E" />
-    {/* Soft inner pith ring (Offwhite) */}
-    <circle cx="30" cy="36" r="19.5" fill="#F9F4E9" />
-    {/* Four clean rounded citrus segments (Coral & Lemon) */}
+
+    {/* Primary sculpted citrus leaf (right, two-tone flat botanical split) */}
     <path
-      d="M31.8 18.5C40.1 19.3 46.7 25.9 47.5 34.2H31.8V18.5Z"
+      d="M30 15.5C32.2 8.8 40.5 4.2 50.5 5.8C47.8 14.5 39.8 19.2 30 15.5Z"
+      fill="#4E9A6F"
+    />
+    <path
+      d="M30 15.5C32.2 8.8 40.5 4.2 50.5 5.8C43.5 9.2 36.2 12.6 30 15.5Z"
+      fill="#74C18E"
+    />
+
+    {/* Outer citrus rind (Orange) */}
+    <circle cx="30" cy="38" r="22.5" fill="#FFB45E" />
+    {/* Soft inner pith ring (Offwhite) */}
+    <circle cx="30" cy="38" r="18.2" fill="#F9F4E9" />
+
+    {/* Four clean rounded citrus segments (Coral, Lemon, Orange) */}
+    <path
+      d="M31.7 21.6C39.5 22.4 45.6 28.5 46.4 36.3H31.7V21.6Z"
       fill="#FF786B"
     />
     <path
-      d="M28.2 18.5V34.2H12.5C13.3 25.9 19.9 19.3 28.2 18.5Z"
+      d="M28.3 21.6V36.3H13.6C14.4 28.5 20.5 22.4 28.3 21.6Z"
       fill="#F5D86E"
     />
     <path
-      d="M12.5 37.8H28.2V53.5C19.9 52.7 13.3 46.1 12.5 37.8Z"
+      d="M13.6 39.7H28.3V54.4C20.5 53.6 14.4 47.5 13.6 39.7Z"
       fill="#FF786B"
     />
     <path
-      d="M31.8 37.8H47.5C46.7 46.1 40.1 52.7 31.8 53.5V37.8Z"
+      d="M31.7 39.7H46.4C45.6 47.5 39.5 53.6 31.7 54.4V39.7Z"
       fill="#FFB45E"
     />
+
     {/* Center core */}
-    <circle cx="30" cy="36" r="4" fill="#F9F4E9" />
+    <circle cx="30" cy="38" r="3.8" fill="#F9F4E9" />
   </svg>
 );

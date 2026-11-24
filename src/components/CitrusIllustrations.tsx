@@ -62,10 +62,14 @@ export const HeroCitrusBackdrop: React.FC = () => {
         <path d="M166 294H276V404C218 399 171 352 166 294Z" fill="#FF786B" />
         <path d="M294 294H404C399 352 352 399 294 404V294Z" fill="#FFB45E" />
         <circle cx="285" cy="285" r="26" fill="#F9F4E9" />
-        {/* Minimal Graphite botanical leaf */}
+        {/* Botanical two-tone flat citrus leaf */}
         <path
-          d="M118 190C118 134 166 96 218 110C224 162 178 206 118 190Z"
-          fill="#252A29"
+          d="M196 144C144 134 104 94 114 48C164 52 206 94 196 144Z"
+          fill="#4E9A6F"
+        />
+        <path
+          d="M196 144C144 134 104 94 114 48C144 82 172 114 196 144Z"
+          fill="#74C18E"
         />
       </motion.svg>
     </div>
