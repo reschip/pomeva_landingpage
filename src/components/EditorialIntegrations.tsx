@@ -2,19 +2,10 @@ import React from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Check } from 'lucide-react';
 import { PomeloIcon } from './PomeloIcon';
+import { useLanguage } from '../i18n/LanguageContext';
+import type { IntegrationPlatform } from '../i18n/content';
 
-export interface IntegrationPlatform {
-  id: string;
-  name: string;
-  tag: string;
-  color: string;
-  img: string;
-  metrics: {
-    products: string;
-    syncTime: string;
-  };
-  photos: string[];
-}
+export type { IntegrationPlatform };
 
 interface EditorialIntegrationsProps {
   integrations: Record<string, IntegrationPlatform>;
@@ -31,12 +22,13 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
   setActiveIntegrationId,
 }) => {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLanguage();
   const integrationList = Object.values(integrations);
   const activeIntegration = integrations[activeIntegrationId] ?? integrationList[0];
 
   return (
     <section
-      aria-label="Integración con plataformas de ecommerce"
+      aria-label={t.integrations.sectionAria}
       className="relative bg-[#F9F4E9] text-[#252A29] font-citrus-sans py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
     >
       <div className="w-full max-w-[1320px] mx-auto">
@@ -52,24 +44,24 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
             className="font-citrus-display text-[clamp(1.85rem,3.8vw,3.25rem)] leading-[1.08] tracking-[-0.03em] font-semibold text-[#252A29]"
             style={{ textWrap: 'balance' }}
           >
-            Conecta tu catálogo en{' '}
-            <span className="text-[#FF786B]">minutos.</span>{' '}
-            Empieza a vender mejor.
+            {t.integrations.titleBefore}{' '}
+            <span className="text-[#FF786B]">{t.integrations.titleHighlight}</span>{' '}
+            {t.integrations.titleAfter}
           </h2>
           <p
             className="mt-4 text-[17px] sm:text-[19px] leading-[1.5] text-[#555D5B] max-w-2xl mx-auto font-normal"
             style={{ textWrap: 'balance' }}
           >
-            Pomeva procesa tu inventario, variables y contexto de forma nativa sin interrumpir la operación de tu tienda.
+            {t.integrations.subtitle}
           </p>
         </motion.div>
 
         {/* Two-column Integration Pipeline */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-12 xl:gap-20 items-center">
           {/* Left Column: Open Platform Selector */}
           <div
             role="group"
-            aria-label="Seleccionar plataforma"
+            aria-label={t.integrations.groupAria}
             className="lg:col-span-4 flex flex-col gap-5"
           >
             {integrationList.map((node) => {
@@ -121,12 +113,12 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
           </div>
 
           {/* Right Column: Animated Flow from Raw Catalog to Pomeva AI */}
-          <div className="lg:col-span-8 flex flex-col">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-10 lg:gap-12">
+          <div className="lg:col-span-8 flex flex-col min-w-0">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-6 xl:gap-10">
               {/* Step 1: Raw Catalog */}
               <div className="flex flex-col items-center gap-4 shrink-0">
                 <span className="text-[11px] uppercase tracking-[0.14em] text-[#555D5B] font-semibold">
-                  Catálogo Bruto
+                  {t.integrations.rawCatalog}
                 </span>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -144,11 +136,11 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                           : { y: [0, -4, 0] }
                       }
                       transition={{ repeat: Infinity, duration: 3.4, ease: 'easeInOut' }}
-                      className="w-28 h-36 sm:w-32 sm:h-40 rounded-3xl bg-[#F2EAD8] overflow-hidden -rotate-3 relative z-10"
+                      className="w-28 h-36 xl:w-32 xl:h-40 rounded-3xl bg-[#F2EAD8] overflow-hidden -rotate-3 relative z-10"
                     >
                       <img
                         src={activeIntegration.photos[0]}
-                        alt={`${activeIntegration.name} producto 1`}
+                        alt={t.integrations.productAlt(activeIntegration.name, 1)}
                         className="w-full h-full object-cover"
                       />
                     </motion.div>
@@ -159,11 +151,11 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                           : { y: [0, 4, 0] }
                       }
                       transition={{ repeat: Infinity, duration: 3.4, delay: 0.5, ease: 'easeInOut' }}
-                      className="w-28 h-36 sm:w-32 sm:h-40 rounded-3xl bg-[#F2EAD8] overflow-hidden rotate-3 translate-y-2 relative z-0"
+                      className="w-28 h-36 xl:w-32 xl:h-40 rounded-3xl bg-[#F2EAD8] overflow-hidden rotate-3 translate-y-2 relative z-0"
                     >
                       <img
                         src={activeIntegration.photos[1]}
-                        alt={`${activeIntegration.name} producto 2`}
+                        alt={t.integrations.productAlt(activeIntegration.name, 2)}
                         className="w-full h-full object-cover opacity-85"
                       />
                     </motion.div>
@@ -173,11 +165,11 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
 
               {/* Animated Stream: Catálogo Bruto -> Pomeva AI -> Inteligencia AI */}
               <div
-                className="flex flex-col md:flex-row items-center gap-2 sm:gap-3 shrink-0"
+                className="flex flex-col md:flex-row items-center gap-2 xl:gap-3 shrink-0"
                 aria-hidden="true"
               >
                 {/* Incoming traveling particles */}
-                <div className="relative w-16 h-5 overflow-hidden flex items-center justify-end rotate-90 md:rotate-0 my-3 md:my-0">
+                <div className="relative w-12 xl:w-16 h-5 overflow-hidden flex items-center justify-end rotate-90 md:rotate-0 my-3 md:my-0">
                   {!prefersReducedMotion &&
                     FLOW_DOTS.map((delay, idx) => (
                       <motion.span
@@ -204,13 +196,13 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                       : { scale: [1, 1.07, 1] }
                   }
                   transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
-                  className="w-16 h-16 rounded-full bg-[#F5D86E] flex items-center justify-center shrink-0"
+                  className="w-14 h-14 xl:w-16 xl:h-16 rounded-full bg-[#F5D86E] flex items-center justify-center shrink-0"
                 >
-                  <PomeloIcon className="w-9 h-9 shrink-0" />
+                  <PomeloIcon className="w-8 h-8 xl:w-9 xl:h-9 shrink-0" />
                 </motion.div>
 
                 {/* Outgoing traveling particles */}
-                <div className="relative w-16 h-5 overflow-hidden flex items-center justify-end rotate-90 md:rotate-0 my-3 md:my-0">
+                <div className="relative w-12 xl:w-16 h-5 overflow-hidden flex items-center justify-end rotate-90 md:rotate-0 my-3 md:my-0">
                   {!prefersReducedMotion &&
                     FLOW_DOTS.map((delay, idx) => (
                       <motion.span
@@ -231,9 +223,9 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
               </div>
 
               {/* Step 3: Structured AI Output */}
-              <div className="flex flex-col items-center md:items-start gap-4 w-full max-w-[290px] shrink-0">
+              <div className="flex flex-col items-center md:items-start gap-4 w-full max-w-[270px] xl:max-w-[290px] min-w-0">
                 <span className="text-[11px] uppercase tracking-[0.14em] text-[#C94437] font-semibold">
-                  Inteligencia AI
+                  {t.integrations.aiIntelligence}
                 </span>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -259,10 +251,10 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                       </div>
                       <div>
                         <div className="font-citrus-display text-[17px] font-semibold text-[#252A29] leading-tight">
-                          Bundle Recomendado
+                          {t.integrations.recommendedBundle}
                         </div>
                         <div className="text-[11px] uppercase tracking-[0.12em] text-[#C94437] font-semibold mt-1">
-                          Match Semántico
+                          {t.integrations.semanticMatch}
                         </div>
                       </div>
                     </div>
@@ -272,7 +264,7 @@ export const EditorialIntegrations: React.FC<EditorialIntegrationsProps> = ({
                         <Check size={11} strokeWidth={2.8} />
                       </span>
                       <span className="font-semibold text-[#252A29]">
-                        {activeIntegration.name} conectado
+                        {t.integrations.connected(activeIntegration.name)}
                       </span>
                     </div>
                   </motion.div>

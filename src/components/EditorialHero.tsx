@@ -9,48 +9,8 @@ import {
 import { Check } from 'lucide-react';
 import { PomeloIcon } from './PomeloIcon';
 import { HeroCitrusBackdrop, ScrollCitrusCue } from './CitrusIllustrations';
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  img: string;
-  z: number;
-  rotate: number;
-  x: string;
-  y: string;
-}
-
-interface InlineProduct {
-  name: string;
-  price: number;
-  img: string;
-  note?: string;
-}
-
-interface FollowUpTurn {
-  request: string;
-  aiResponse: string;
-}
-
-interface Scenario {
-  id: string;
-  name: string;
-  theme: string;
-  color: string;
-  avatar: string;
-  request: string;
-  aiResponse: string;
-  inlineProduct?: InlineProduct;
-  followUp?: FollowUpTurn;
-  products: Product[];
-  basePrice: number;
-  kitPrice: number;
-  multiplier: string;
-  cartPrompt?: string;
-  cartReply?: string;
-  cartSummary?: string;
-}
+import { useLanguage } from '../i18n/LanguageContext';
+import type { Scenario } from '../i18n/content';
 
 interface EditorialHeroProps {
   scenarios: Record<string, Scenario>;
@@ -69,6 +29,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLanguage();
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
 
   const [showShowcase, setShowShowcase] = useState(false);
@@ -194,7 +155,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
   return (
     <section
       ref={sectionRef}
-      aria-label="Experiencia conversacional de recomendación"
+      aria-label={t.hero.sectionAria}
       className="relative min-h-[100dvh] flex flex-col justify-start bg-[#F9F4E9] text-[#252A29] font-citrus-sans pt-24 sm:pt-28 lg:pt-[108px] pb-8 sm:pb-10 px-6 lg:px-12 overflow-hidden"
     >
       <HeroCitrusBackdrop />
@@ -209,9 +170,9 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
             className="font-citrus-display text-[clamp(1.75rem,4.5vw,3.65rem)] leading-[1.06] tracking-[-0.03em] font-semibold text-[#252A29]"
             style={{ textWrap: 'balance' }}
           >
-            Buscador{' '}
-            <span className="text-[#FF786B]">inteligente</span>{' '}
-            para ecommerce
+            {t.hero.titleBefore && <>{t.hero.titleBefore}{' '}</>}
+            <span className="text-[#FF786B]">{t.hero.titleHighlight}</span>
+            {t.hero.titleAfter && <>{' '}{t.hero.titleAfter}</>}
           </motion.h1>
           <motion.p
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
@@ -220,11 +181,16 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
             className="mt-4 sm:mt-5 text-[17px] sm:text-[19.5px] lg:text-[21px] leading-[1.5] text-[#555D5B] max-w-2xl mx-auto font-normal"
             style={{ textWrap: 'balance' }}
           >
-            Tu propio vendedor{' '}
-            <span className="inline-block font-citrus-display font-bold text-[0.95em] leading-none tracking-[-0.01em] text-[#252A29] bg-[#F5D86E] px-2.5 py-1 rounded-full mx-0.5 align-baseline">
-              24/7
+            {t.hero.subtitleBefore}{' '}
+            <span className="whitespace-nowrap">
+              <span className="inline-block font-citrus-display font-bold text-[0.95em] leading-none tracking-[-0.01em] text-[#252A29] bg-[#F5D86E] px-2.5 py-1 rounded-full mx-0.5 align-baseline">
+                {t.hero.badge}
+              </span>
+              {t.hero.subtitleAfter.startsWith(',') ? ',' : ''}
             </span>
-            , conectado a tu catálogo para recomendar el producto ideal.
+            {t.hero.subtitleAfter.startsWith(',')
+              ? t.hero.subtitleAfter.slice(1)
+              : t.hero.subtitleAfter}
           </motion.p>
         </div>
 
@@ -291,7 +257,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                         className="w-full max-w-[360px] ml-auto space-y-3 pt-1 text-right"
                       >
                         <div className="flex items-center justify-end gap-2 text-[11px] uppercase tracking-[0.14em] text-[#555D5B] font-semibold">
-                          <span>Pomeva AI</span>
+                          <span>Pomera</span>
                           <PomeloIcon className="w-5 h-5 shrink-0" />
                         </div>
                         <div className="h-[26px] flex items-center justify-end gap-2">
@@ -333,7 +299,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                         className="w-full max-w-[580px] ml-auto space-y-3 text-right"
                       >
                         <div className="flex items-center justify-end gap-2 text-[11px] uppercase tracking-[0.14em] text-[#252A29] font-semibold">
-                          <span>Pomeva AI</span>
+                          <span>Pomera</span>
                           <PomeloIcon className="w-5 h-5 shrink-0" />
                         </div>
                         <p
@@ -562,8 +528,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           className="flex items-center gap-2.5 text-right"
                         >
                           <span className="font-citrus-sans text-[16px] sm:text-[18px] text-[#555D5B]">
-                            {activeData.cartPrompt ??
-                              `¿Agrego los ${products.length} productos a tu carrito?`}
+                            {activeData.cartPrompt ?? t.hero.cartPromptFallback(products.length)}
                           </span>
                           <PomeloIcon className="w-5 h-5 shrink-0" />
                         </motion.div>
@@ -588,7 +553,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                             className="w-6 h-6 rounded-full object-cover shrink-0"
                           />
                           <span className="font-citrus-display text-[17px] sm:text-[19px] font-medium text-[#252A29] tracking-[-0.015em]">
-                            “{activeData.cartReply ?? 'Sí, agrégalos.'}”
+                            “{activeData.cartReply ?? t.hero.cartReplyFallback}”
                           </span>
                         </motion.div>
                       )}
@@ -611,8 +576,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                               <Check size={13} strokeWidth={2.6} />
                             </span>
                             <span>
-                              {activeData.cartSummary ??
-                                `${products.length} productos agregados al carrito`}
+                              {activeData.cartSummary ?? t.hero.cartSummaryFallback(products.length)}
                             </span>
                           </div>
 
@@ -638,7 +602,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
       {/* SCENARIO PILL DOTS + FLAT CITRUS SCROLL CUE */}
       <div className="relative z-10 mt-auto pt-4 flex flex-col items-center gap-4">
         <nav
-          aria-label="Cambiar escenario de demostración"
+          aria-label={t.hero.scenarioNavAria}
           className="flex items-center justify-center gap-2"
         >
           {scenarioList.map((profile) => {
@@ -648,7 +612,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                 key={profile.id}
                 type="button"
                 onClick={() => setActiveProfileId(profile.id)}
-                aria-label={`Ver escenario de ${profile.name}`}
+                aria-label={t.hero.viewScenario(profile.name)}
                 aria-pressed={isActive}
                 className="p-1.5 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF786B] rounded-full"
               >

@@ -3,13 +3,10 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { PomeloIcon } from './PomeloIcon';
 import { DiscoveryCitrusBackdrop } from './CitrusIllustrations';
+import { useLanguage } from '../i18n/LanguageContext';
+import type { DiscoveryIntent } from '../i18n/content';
 
-export interface DiscoveryIntent {
-  id: string;
-  quote: string;
-  tags: string[];
-  activeNodes: number[];
-}
+export type { DiscoveryIntent };
 
 interface EditorialDiscoveryProps {
   intents: DiscoveryIntent[];
@@ -38,11 +35,12 @@ export const EditorialDiscovery: React.FC<EditorialDiscoveryProps> = ({
   setActiveIntentIndex,
 }) => {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLanguage();
   const activeIntent = intents[activeIntentIndex] ?? intents[0];
 
   return (
     <section
-      aria-label="Descubrimiento inteligente por intención"
+      aria-label={t.discovery.sectionAria}
       className="relative bg-[#252A29] text-[#F9F4E9] font-citrus-sans py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
     >
       <DiscoveryCitrusBackdrop />
@@ -60,8 +58,9 @@ export const EditorialDiscovery: React.FC<EditorialDiscoveryProps> = ({
             className="font-citrus-display text-[clamp(1.85rem,3.8vw,3.25rem)] leading-[1.08] tracking-[-0.03em] font-semibold text-[#F9F4E9]"
             style={{ textWrap: 'balance' }}
           >
-            Transformando catálogos estáticos en{' '}
-            <span className="text-[#F5D86E]">experiencias</span> de compra inteligentes.
+            {t.discovery.titleBefore}{' '}
+            <span className="text-[#F5D86E]">{t.discovery.titleHighlight}</span>{' '}
+            {t.discovery.titleAfter}
           </h2>
         </motion.div>
 
@@ -70,7 +69,7 @@ export const EditorialDiscovery: React.FC<EditorialDiscoveryProps> = ({
           {/* Left Column: Open Intent List */}
           <div
             role="group"
-            aria-label="Seleccionar intención de compra"
+            aria-label={t.discovery.groupAria}
             className="lg:col-span-5 flex flex-col gap-8"
           >
             {intents.map((intent, idx) => {
@@ -99,7 +98,7 @@ export const EditorialDiscovery: React.FC<EditorialDiscoveryProps> = ({
                           : 'text-[#C9C4B8] group-hover:text-[#F9F4E9]'
                       }`}
                     >
-                      {intent.id}
+                      {intent.label}
                     </span>
                   </div>
 
@@ -130,10 +129,10 @@ export const EditorialDiscovery: React.FC<EditorialDiscoveryProps> = ({
               {/* Top Meta Header */}
               <div className="flex items-center justify-between mb-6">
                 <span className="text-[11px] uppercase tracking-[0.14em] text-[#C9C4B8] font-semibold">
-                  Mapeo de catálogo
+                  {t.discovery.catalogMapping}
                 </span>
                 <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-[#F9F4E9] font-semibold">
-                  <span>Pomeva AI</span>
+                  <span>Pomera</span>
                   <PomeloIcon className="w-5 h-5 shrink-0" />
                 </div>
               </div>
@@ -234,7 +233,7 @@ export const EditorialDiscovery: React.FC<EditorialDiscoveryProps> = ({
 
                 <div className="inline-flex items-baseline gap-2.5 shrink-0">
                   <span className="text-[11px] uppercase tracking-[0.12em] text-[#C9C4B8]">
-                    Coincidencias
+                    {t.discovery.matches}
                   </span>
                   <span className="font-citrus-display text-[24px] sm:text-[26px] leading-none font-bold tracking-[-0.02em] text-[#FFB45E] tabular-nums">
                     {activeIntent.activeNodes.length}

@@ -2,19 +2,10 @@ import React from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { LedgerCitrusArt } from './CitrusIllustrations';
+import { useLanguage } from '../i18n/LanguageContext';
+import type { LedgerEntry } from '../i18n/content';
 
-export interface LedgerEntry {
-  id: string;
-  category: string;
-  color: string;
-  chat: { text: string; active: boolean }[];
-  highlighted: string;
-  extracted: string;
-  metricTitle: string;
-  metricValue: string;
-  action: string;
-  img: string;
-}
+export type { LedgerEntry };
 
 interface EditorialLedgerProps {
   entries: LedgerEntry[];
@@ -30,11 +21,12 @@ export const EditorialLedger: React.FC<EditorialLedgerProps> = ({
   setLedgerIndex,
 }) => {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLanguage();
   const activeLedger = entries[ledgerIndex] ?? entries[0];
 
   return (
     <section
-      aria-label="Inteligencia de negocio extraída en tiempo real"
+      aria-label={t.ledger.sectionAria}
       className="relative bg-[#F2EAD8] text-[#252A29] font-citrus-sans py-28 sm:py-36 lg:py-44 px-6 lg:px-12 overflow-hidden"
     >
       <div className="w-full max-w-[1320px] mx-auto">
@@ -50,14 +42,15 @@ export const EditorialLedger: React.FC<EditorialLedgerProps> = ({
             className="font-citrus-display text-[clamp(1.85rem,3.8vw,3.25rem)] leading-[1.08] tracking-[-0.03em] font-semibold text-[#252A29]"
             style={{ textWrap: 'balance' }}
           >
-            Las conversaciones{' '}
-            <span className="text-[#FF786B]">estructuran</span> tu negocio.
+            {t.ledger.titleBefore}{' '}
+            <span className="text-[#FF786B]">{t.ledger.titleHighlight}</span>{' '}
+            {t.ledger.titleAfter}
           </h2>
           <p
             className="mt-4 text-[17px] sm:text-[19px] leading-[1.5] text-[#555D5B] max-w-2xl mx-auto font-normal"
             style={{ textWrap: 'balance' }}
           >
-            El asistente no solo vende; extrae inteligencia de negocio de cada chat en tiempo real. Descubre lo que tus clientes realmente buscan.
+            {t.ledger.subtitle}
           </p>
         </motion.div>
 
@@ -120,7 +113,7 @@ export const EditorialLedger: React.FC<EditorialLedgerProps> = ({
 
             {/* Citrus Pill Dots Selector */}
             <nav
-              aria-label="Seleccionar ejemplo de conversación"
+              aria-label={t.ledger.navAria}
               className="mt-7 flex items-center gap-2"
             >
               {entries.map((entry, idx) => {
@@ -130,7 +123,7 @@ export const EditorialLedger: React.FC<EditorialLedgerProps> = ({
                     key={entry.id}
                     type="button"
                     onClick={() => setLedgerIndex(idx)}
-                    aria-label={`Ver ejemplo: ${entry.extracted}`}
+                    aria-label={t.ledger.viewExample(entry.extracted)}
                     aria-pressed={isActive}
                     className="p-1.5 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF786B] rounded-full"
                   >
@@ -168,7 +161,7 @@ export const EditorialLedger: React.FC<EditorialLedgerProps> = ({
                 </div>
 
                 <div className="text-[11px] uppercase tracking-[0.14em] text-[#555D5B] font-semibold mb-2">
-                  Concepto Extraído
+                  {t.ledger.extractedConcept}
                 </div>
 
                 <h3 className="font-citrus-display text-[26px] sm:text-[32px] leading-[1.15] tracking-[-0.025em] font-semibold text-[#252A29] mb-7">
