@@ -22,7 +22,11 @@ const scenarios: Record<string, any> = {
     ],
     basePrice: 42,
     kitPrice: 105,
-    multiplier: '2.5x'
+    multiplier: '2.5x ticket',
+    cartPrompt: '¿Agrego los 3 productos a tu carrito?',
+    cartReply: 'Sí, arma mi rutina.',
+    cartSummary: '3 productos agregados al carrito',
+    cycleDuration: 15500,
   },
   mateo: {
     id: 'mateo',
@@ -30,16 +34,30 @@ const scenarios: Record<string, any> = {
     theme: 'Café de especialidad',
     color: '#1F2937', // Charcoal
     avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=faces',
-    request: "Mi café siempre me sabe muy ácido o muy aguado. No sé qué estoy haciendo mal al prepararlo en casa.",
-    aiResponse: "Suele ser por la molienda inconsistente o la temperatura del agua. Con un buen molino manual y control de vertido, tu café cambiará drásticamente. Mira esto:",
+    request: "Quería el Molino Comandante pero veo que está agotado, ¿tienen algo similar en acero?",
+    aiResponse: "Vuelve en 2 semanas, pero nuestro Molino de Acero tiene el mismo ajuste micrométrico y stock inmediato.",
+    inlineProduct: {
+      name: 'Molino de Acero',
+      price: 85,
+      img: '/images/molino_acero.jpg',
+      note: 'Stock inmediato',
+    },
+    followUp: {
+      request: "Perfecto. Necesito 12 kits completos para mi equipo esta semana, ¿tienen stock y facturan?",
+      aiResponse: "Tenemos 20 unidades listas de cada pieza con envío en 48 h y factura automática. Cada kit queda en $144:",
+    },
     products: [
       { id: 'p4', name: 'Molino de Acero', price: 85, img: '/images/molino_acero.jpg', z: 30, rotate: 1, x: '0%', y: '0%' },
       { id: 'p5', name: 'Báscula Digital', price: 35, img: '/images/bascula_digital.jpg', z: 20, rotate: -3, x: '-20%', y: '25%' },
       { id: 'p6', name: 'Café Kenia Lavado', price: 24, img: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=300&h=300&fit=crop', z: 40, rotate: 5, x: '30%', y: '20%' }
     ],
-    basePrice: 24,
-    kitPrice: 144,
-    multiplier: '6x'
+    basePrice: 1728,
+    kitPrice: 1728,
+    multiplier: 'B2B · 12 kits',
+    cartPrompt: '¿Agrego los 12 kits a tu carrito?',
+    cartReply: 'Dale, súmalos al pedido.',
+    cartSummary: '12 kits agregados al carrito',
+    cycleDuration: 26000,
   },
   sofia: {
     id: 'sofia',
@@ -47,16 +65,29 @@ const scenarios: Record<string, any> = {
     theme: 'Plantas y hogar',
     color: '#059669', // Emerald
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=faces',
-    request: "Mi departamento casi no tiene luz natural, pero me encantaría tener plantas que no se mueran a la semana.",
-    aiResponse: "He seleccionado especies de sombra muy resistentes y macetas con el drenaje adecuado para evitar excesos de humedad.",
+    request: "Ya tengo la Maceta Terracota ($45) en mi carrito, ¿cuánto me falta para envío gratis?",
+    aiResponse: "Te faltan $45 sobre tu Maceta Terracota para activar el envío gratis hoy mismo.",
+    inlineProduct: {
+      name: 'Maceta Terracota',
+      price: 45,
+      img: 'https://images.unsplash.com/photo-1487798452839-c748a707a6b2?w=300&h=300&fit=crop',
+      note: 'En tu carrito',
+    },
+    followUp: {
+      request: "Genial, pero mi tope total son $100, ¿qué planta y tierra puedo sumar sin pasarme?",
+      aiResponse: "Sumando la Zamioculcas ($32) y el Sustrato drenante ($15) cubres el envío gratis y queda lista en $92 totales:",
+    },
     products: [
       { id: 'p1', name: 'Zamioculcas (ZZ)', price: 32, img: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=500&fit=crop', z: 30, rotate: -2, x: '-10%', y: '5%' },
-      { id: 'p2', name: 'Maceta Terracota', price: 45, img: 'https://images.unsplash.com/photo-1487798452839-c748a707a6b2?w=300&h=300&fit=crop', z: 20, rotate: 4, x: '25%', y: '-10%' },
       { id: 'p3', name: 'Sustrato Drenaje', price: 15, img: '/images/sustrato_drenaje.jpg', z: 40, rotate: -5, x: '35%', y: '40%' }
     ],
-    basePrice: 32,
+    basePrice: 45,
     kitPrice: 92,
-    multiplier: '2.8x'
+    multiplier: 'Envío gratis',
+    cartPrompt: '¿Agrego esos 2 productos a tu carrito?',
+    cartReply: 'Perfecto, agrégalas.',
+    cartSummary: '2 productos agregados al carrito',
+    cycleDuration: 26000,
   }
 };
 
@@ -228,16 +259,17 @@ export default function App() {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, [activeProfileId]);
 
-  // Orquestación Hero Auto-cycle (se reinicia al seleccionar un punto manualmente)
+  // Orquestación Hero Auto-cycle (respeta duración por escenario)
   useEffect(() => {
     const profileIds = Object.keys(scenarios);
-    const interval = setInterval(() => {
+    const duration = scenarios[activeProfileId]?.cycleDuration ?? 16500;
+    const timeout = setTimeout(() => {
       setActiveProfileId((prev) => {
         const idx = profileIds.indexOf(prev);
         return profileIds[(idx + 1) % profileIds.length];
       });
-    }, 16500);
-    return () => clearInterval(interval);
+    }, duration);
+    return () => clearTimeout(timeout);
   }, [activeProfileId]);
 
   // Orquestación Discovery Auto-cycle
