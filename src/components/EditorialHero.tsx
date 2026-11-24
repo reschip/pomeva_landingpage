@@ -196,11 +196,11 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
     <section
       ref={sectionRef}
       aria-label="Experiencia conversacional de recomendación"
-      className="relative min-h-[100dvh] flex flex-col justify-start bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] pt-24 sm:pt-24 lg:pt-[96px] pb-8 sm:pb-10 px-6 lg:px-12 border-b border-[#E8E8E6] overflow-hidden"
+      className="relative min-h-[100dvh] flex flex-col bg-[#FFFFFF] text-[#111111] font-editorial-sans selection:bg-[#111111] selection:text-[#FFFFFF] pt-20 sm:pt-24 pb-6 sm:pb-8 px-6 lg:px-12 border-b border-[#E8E8E6] overflow-hidden"
     >
-      <div className="w-full max-w-[1160px] mx-auto">
+      <div className="w-full max-w-[1160px] mx-auto my-auto">
         {/* 1. CENTERED HERO HEADLINE & SUBHEADLINE */}
-        <div className="text-center mx-auto pb-12 sm:pb-16 lg:pb-20">
+        <div className="text-center mx-auto pb-8 sm:pb-10 lg:pb-12">
           <motion.h1
             initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -229,7 +229,7 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
         </div>
 
         {/* 2. LOCKED-HEIGHT STAGE (ZERO JUMP BETWEEN SCENARIOS, TURNS & ACTS) */}
-        <div className="max-w-[960px] mx-auto h-[480px] sm:h-[535px] lg:h-[555px] flex flex-col justify-start">
+        <div className="max-w-[960px] mx-auto h-[465px] sm:h-[515px] lg:h-[530px] flex flex-col justify-start">
           <AnimatePresence mode="wait">
             {!showShowcase ? (
               /* ACT 1: MULTI-TURN EDITORIAL TRANSCRIPT WITH INLINE PRODUCT CONTEXT */
@@ -597,8 +597,8 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                     </AnimatePresence>
                   </div>
 
-                  {/* Confirmation below: Explicit E-Commerce Cart Conversion + Value Jump */}
-                  <div className="min-h-[44px] flex items-center justify-center">
+                  {/* Confirmation below: Editorial Receipt Line (no pill badge, no filled circle) */}
+                  <div className="min-h-[54px] flex items-end">
                     <AnimatePresence>
                       {cartStep >= 3 && (
                         <motion.div
@@ -607,13 +607,10 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                           }
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.45, ease: EASE_OUT }}
-                          className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-4"
+                          className="w-full pt-3.5 border-t border-[#E8E8E6] flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2"
                         >
-                          <div className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] font-medium text-[#111111]">
-                            <span
-                              className="w-5 h-5 rounded-full flex items-center justify-center text-[#FFFFFF] shrink-0"
-                              style={{ backgroundColor: activeData.color }}
-                            >
+                          <div className="inline-flex items-center gap-2.5 text-[14px] sm:text-[15px] font-medium text-[#111111]">
+                            <span className="w-5 h-5 rounded-full bg-[#F97316] flex items-center justify-center text-[#FFFFFF] shrink-0">
                               <Check size={12} strokeWidth={2.5} />
                             </span>
                             <span>
@@ -622,30 +619,12 @@ export const EditorialHero: React.FC<EditorialHeroProps> = ({
                             </span>
                           </div>
 
-                          <span
-                            className="hidden sm:inline-block w-[1px] h-5 bg-[#E2E2DE]"
-                            aria-hidden="true"
-                          />
-
-                          <div className="inline-flex items-baseline gap-2.5">
-                            {activeData.basePrice !== activeData.kitPrice && (
-                              <>
-                                <span className="text-[14px] line-through text-[#8C8C88] tabular-nums">
-                                  ${activeData.basePrice.toLocaleString('en-US')}
-                                </span>
-                                <span className="text-[#8C8C88] text-xs" aria-hidden="true">
-                                  →
-                                </span>
-                              </>
-                            )}
+                          <div className="inline-flex items-baseline gap-2.5 ml-auto">
+                            <span className="text-[11px] uppercase tracking-[0.12em] text-[#737370]">
+                              {activeData.multiplier}
+                            </span>
                             <span className="font-editorial-display text-[28px] sm:text-[32px] leading-none font-semibold tracking-[-0.03em] text-[#C2410C] tabular-nums">
                               ${activeData.kitPrice.toLocaleString('en-US')}
-                            </span>
-                            <span
-                              className="text-[11px] uppercase tracking-[0.1em] font-semibold px-2 py-0.5 text-[#FFFFFF] rounded-[3px]"
-                              style={{ backgroundColor: activeData.color }}
-                            >
-                              {activeData.multiplier}
                             </span>
                           </div>
                         </motion.div>
